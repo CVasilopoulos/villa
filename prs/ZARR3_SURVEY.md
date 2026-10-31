@@ -4,7 +4,7 @@ Upstream main `d57c28ebe`, zarr 3.2.1 + numcodecs 0.16.5 (`uv.lock`) vs zarr 2.1
 
 Searched for APIs that zarr 3.2.1 no longer has (checked with `hasattr` on 3.2.1): `Group.create_dataset`, `Group.require_dataset`, `Group.array`, `Group.visititems`, `Array.chunk_store`, `zarr.DirectoryStore`/`NestedDirectoryStore`/`FSStore`/`LRUStoreCache`/`N5Store`, `zarr.convenience`/`hierarchy`/`creation`, synchronizers. Only `create_dataset` occurs in these files.
 
-Synthetic inputs (`survey/mk_inputs.py`): 8 TIFFs of 32×32 uint8; one 16×16 tifxyz plane in a 32³ volume (+ a 16×16 `_inklabels.png` of 255); a zarr v2 source with levels 0 (32³) and 1 (16³). Every crashing script ran to completion on the same input under zarr 2.18.7.
+Synthetic inputs (made by a scratch script, not committed): 8 TIFFs of 32×32 uint8; one 16×16 tifxyz plane in a 32³ volume (+ a 16×16 `_inklabels.png` of 255); a zarr v2 source with levels 0 (32³) and 1 (16³). Every crashing script ran to completion on the same input under zarr 2.18.7.
 
 | File | Call site | Crashes under zarr 3.2.1? (how verified) | Existing PR/issue | Separate PR? |
 |---|---|---|---|---|
