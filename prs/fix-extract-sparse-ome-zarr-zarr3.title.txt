@@ -1,0 +1,1 @@
+extract_sparse_ome_zarr: create levels through create_zarr_array so the script runs under zarr 3
