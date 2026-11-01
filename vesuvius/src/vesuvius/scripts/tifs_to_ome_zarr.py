@@ -31,6 +31,8 @@ import zarr
 from numcodecs import Blosc
 from tqdm import tqdm
 
+from vesuvius.data.utils import create_zarr_array, open_zarr_group
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
@@ -552,7 +554,8 @@ def generate_pyramid_levels(
         logger.info(f"Level {level}: {prev_shape} -> {out_shape}")
 
         # Create output array
-        out_arr = root.create_dataset(
+        out_arr = create_zarr_array(
+            root,
             str(level),
             shape=out_shape,
             chunks=chunks,
@@ -703,10 +706,11 @@ def convert_tifs_to_ome_zarr(
         logger.warning(f"Removing existing {output_path}")
         shutil.rmtree(output_path)
 
-    root = zarr.open(str(output_path), mode="w")
+    root = open_zarr_group(str(output_path), mode="w")
 
     # Create level 0 array
-    arr_0 = root.create_dataset(
+    arr_0 = create_zarr_array(
+        root,
         "0",
         shape=volume_shape,
         chunks=chunk_shape,
